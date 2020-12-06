@@ -1,3 +1,7 @@
 package repository
 
-type Repository struct{}
+import "gorm.io/gorm"
+
+type Repository struct {
+	Postgres *gorm.DB
+}

@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2e9e7642-8f35-4d5f-a79f-6e85ef69f2bf" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/application/api/main.go" afterDir="false" />
+    <list default="true" id="2e9e7642-8f35-4d5f-a79f-6e85ef69f2bf" name="Default Changelist" comment="Implement Welcome Page">
+      <change afterPath="$PROJECT_DIR$/config/postgres.go" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/domain/info/config.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/info/delivery/api.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/info/delivery/welcome.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/info/repository/api.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/info/usecase/api.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/api/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/api/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/info/api.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/info/delivery/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/info/delivery/api.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/info/repository/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/info/repository/api.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/info/usecase/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/info/usecase/api.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,6 +77,23 @@
     <configuration name="go build go-boilerplate/application/api" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="go-boilerplate" />
       <working_directory value="$PROJECT_DIR$" />
+      <envs>
+        <env name="POSTGRES_HOST" value="localhost" />
+        <env name="POSTGRES_PORT" value="5432" />
+        <env name="POSTGRES_NAME" value="xendit" />
+        <env name="POSTGRES_USER" value="xendit" />
+        <env name="POSTGRES_PASS" value="xendit" />
+      </envs>
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" />
+        </ENTRIES>
+      </EXTENSION>
       <kind value="PACKAGE" />
       <filePath value="$PROJECT_DIR$/application/api/main.go" />
       <package value="go-boilerplate/application/api" />
@@ -102,7 +121,26 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
+    <MESSAGE value="Implement Welcome Page" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement Welcome Page" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/config/postgres.go</url>
+          <line>16</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
