@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2e9e7642-8f35-4d5f-a79f-6e85ef69f2bf" name="Default Changelist" comment="Implement Welcome Page">
-      <change afterPath="$PROJECT_DIR$/config/postgres.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/info/config.go" afterDir="false" />
+    <list default="true" id="2e9e7642-8f35-4d5f-a79f-6e85ef69f2bf" name="Default Changelist" comment="Refactor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/api/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/api/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/info/api.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/info/delivery/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/info/delivery/api.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/info/repository/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/info/repository/api.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/info/usecase/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/info/usecase/api.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/application/api/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/postgres.go" beforeDir="false" afterPath="$PROJECT_DIR$/component/postgres.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/info/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/component/info.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +61,7 @@
       <recent name="$PROJECT_DIR$/domain/info" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/config" />
       <recent name="$PROJECT_DIR$/domain/info/delivery" />
       <recent name="$PROJECT_DIR$/domain/info" />
       <recent name="$PROJECT_DIR$/domains/infos/handlers" />
@@ -120,27 +115,20 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
     <MESSAGE value="Implement Welcome Page" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement Welcome Page" />
+    <MESSAGE value="Add Postgres" />
+    <MESSAGE value="Rename package" />
+    <MESSAGE value="Refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/config/postgres.go</url>
-          <line>16</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

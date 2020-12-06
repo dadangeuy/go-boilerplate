@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func (h Delivery) WelcomeHandler(writer http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
+func (h *Delivery) WelcomeHandler(writer http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
 	writer.WriteHeader(http.StatusOK)
 	_, _ = fmt.Fprint(writer, "it works!")
 }

@@ -1,4 +1,4 @@
-package info
+package component
 
 import (
 	"go-boilerplate/domain/info/delivery"
@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func NewDelivery(postgres *gorm.DB) *delivery.Delivery {
+func NewInfoDelivery(postgres *gorm.DB) *delivery.Delivery {
 	infoRepository := &repository.Repository{Postgres: postgres}
 	infoUsecase := &usecase.Usecase{Repository: infoRepository}
 	infoDelivery := &delivery.Delivery{Usecase: infoUsecase}

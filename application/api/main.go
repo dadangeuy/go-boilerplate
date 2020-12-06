@@ -2,26 +2,33 @@ package main
 
 import (
 	"github.com/julienschmidt/httprouter"
-	"go-boilerplate/config"
-	"go-boilerplate/domain/info"
+	"go-boilerplate/component"
 	"net/http"
 )
 
 func main() {
-	postgres, err := config.NewPostgres()
-	if err != nil {
-		panic(err)
-	}
+	// build component
+	postgres, err := component.NewPostgres()
+	panicOnError(err)
+	infoDelivery := component.NewInfoDelivery(postgres)
 
-	infoDelivery := info.NewDelivery(postgres)
-
+	// build router
 	router := httprouter.New()
 	router.GET("/", infoDelivery.WelcomeHandler)
 
+	// build server
 	server := &http.Server{
 		Addr:    ":8080",
 		Handler: router,
 	}
 
-	_ = server.ListenAndServe()
+	// run server
+	err = server.ListenAndServe()
+	panicOnError(err)
+}
+
+func panicOnError(err error) {
+	if err != nil {
+		panic(err)
+	}
 }
