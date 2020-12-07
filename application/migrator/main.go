@@ -8,9 +8,9 @@ import (
 func main() {
 	command := os.Args[1]
 
-	postgres, err := component.NewPostgres()
+	postgresDB, err := component.NewPostgresDB()
 	panicOnError(err)
-	migrator := component.NewPostgresMigrator(postgres)
+	migrator := component.NewPostgresMigrator(postgresDB)
 
 	switch command {
 	case "migrate":

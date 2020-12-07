@@ -8,9 +8,9 @@ import (
 
 func main() {
 	// build component
-	postgres, err := component.NewPostgres()
+	postgresDB, err := component.NewPostgresDB()
 	panicOnError(err)
-	infoDelivery := component.NewInfoDelivery(postgres)
+	infoDelivery := component.NewInfoDelivery(postgresDB)
 
 	// build router
 	router := httprouter.New()

@@ -7,8 +7,8 @@ import (
 	"gorm.io/gorm"
 )
 
-func NewInfoDelivery(postgres *gorm.DB) *delivery.Delivery {
-	infoRepository := &repository.Repository{Postgres: postgres}
+func NewInfoDelivery(db *gorm.DB) *delivery.Delivery {
+	infoRepository := &repository.Repository{DB: db}
 	infoUsecase := &usecase.Usecase{Repository: infoRepository}
 	infoDelivery := &delivery.Delivery{Usecase: infoUsecase}
 

@@ -10,7 +10,7 @@ import (
 	"sort"
 )
 
-func NewPostgres() (*gorm.DB, error) {
+func NewPostgresDB() (*gorm.DB, error) {
 	host := os.Getenv("POSTGRES_HOST")
 	port := os.Getenv("POSTGRES_PORT")
 	name := os.Getenv("POSTGRES_NAME")
@@ -25,11 +25,11 @@ func NewPostgres() (*gorm.DB, error) {
 	return gorm.Open(postgres.Open(dsn), nil)
 }
 
-func NewPostgresMigrator(postgres *gorm.DB) *gormigrate.Gormigrate {
+func NewPostgresMigrator(postgresDB *gorm.DB) *gormigrate.Gormigrate {
 	migrations := []*gormigrate.Migration{
 		migration.NewCreateUserMigration(),
 	}
 	sort.Slice(migrations, func(i, j int) bool { return migrations[i].ID < migrations[j].ID })
 
-	return gormigrate.New(postgres, gormigrate.DefaultOptions, migrations)
+	return gormigrate.New(postgresDB, gormigrate.DefaultOptions, migrations)
 }
