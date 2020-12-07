@@ -2,9 +2,12 @@ package component
 
 import (
 	"fmt"
+	"github.com/go-gormigrate/gormigrate/v2"
+	"go-boilerplate/migration"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"os"
+	"sort"
 )
 
 func NewPostgres() (*gorm.DB, error) {
@@ -20,4 +23,13 @@ func NewPostgres() (*gorm.DB, error) {
 	)
 
 	return gorm.Open(postgres.Open(dsn), nil)
+}
+
+func NewPostgresMigrator(postgres *gorm.DB) *gormigrate.Gormigrate {
+	migrations := []*gormigrate.Migration{
+		migration.NewCreateUserMigration(),
+	}
+	sort.Slice(migrations, func(i, j int) bool { return migrations[i].ID < migrations[j].ID })
+
+	return gormigrate.New(postgres, gormigrate.DefaultOptions, migrations)
 }
