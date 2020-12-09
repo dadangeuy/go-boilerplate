@@ -1,8 +1,9 @@
 package repository_test
 
 import (
+	mocket "github.com/Selvatico/go-mocket"
 	"github.com/stretchr/testify/suite"
-	"go-boilerplate/component"
+	"go-boilerplate/component/mock"
 	"go-boilerplate/domain/user/repository"
 	"testing"
 )
@@ -22,13 +23,9 @@ func (s *RepositorySuite) SetupSuite() {
 		panic(err)
 	}
 
-	s.repository.DB = db
+	s.repository = repository.Repository{DB: db}
 }
 
-func (s *RepositorySuite) BeforeTest(_, _ string) {
-	s.repository.DB = s.repository.DB.Begin()
-}
-
-func (s *RepositorySuite) AfterTest(_, _ string) {
-	s.repository.DB = s.repository.DB.Rollback()
+func (s *RepositorySuite) SetupTest() {
+	mocket.Catcher.Reset()
 }
