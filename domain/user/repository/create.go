@@ -2,9 +2,9 @@ package repository
 
 import "go-boilerplate/model"
 
-func (r *Repository) Create(username string, password string) (model.User, error) {
+func (r *Repository) Create(email string, password string) (model.User, error) {
 	user := model.User{
-		Username: username,
+		Email:    email,
 		Password: password,
 	}
 	err := r.DB.Create(&user).Error
