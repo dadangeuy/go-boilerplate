@@ -6,6 +6,7 @@ require (
 	github.com/Selvatico/go-mocket v1.0.7
 	github.com/go-gormigrate/gormigrate/v2 v2.0.0
 	github.com/jackc/pgx/v4 v4.10.0 // indirect
+	github.com/joho/godotenv v1.3.0
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/stretchr/testify v1.6.1
 	golang.org/x/crypto v0.0.0-20201203163018-be400aefbc4c // indirect

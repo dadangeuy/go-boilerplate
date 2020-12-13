@@ -129,5 +129,6 @@ modules.xml
 
 # End of https://www.toptal.com/developers/gitignore/api/git,go,intellij+all
 
-# Build folder
+# Addition
 build/**/application
+.env
