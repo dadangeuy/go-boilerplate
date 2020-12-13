@@ -1,18 +1,31 @@
-IMAGE = dadangeuy/go-boilerplate
+IMAGE = go-boilerplate
 VERSION = $(shell git show -q --format=%H)
+APPLICATIONS = $(shell ls application)
 
 test:
 	go test -v ./...
 
 build-binary:
-	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o build/web/application application/web/main.go
-	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o build/migrator/application application/migrator/main.go
+	@for application in $(APPLICATIONS); do \
+  		if [ -f application/$$application/main.go ]; then \
+			echo $$application: build binary started; \
+			GOOS=linux GOARCH=amd64 CGO_ENABLED=0 \
+			go build -o build/$$application/application application/$$application/main.go || exit 1; \
+			echo $$application: build binary finished \(build/$$application/application\); \
+		fi; \
+	done
 
-build-image: build-binary
-	docker build -t $(IMAGE)/web:$(VERSION) build/web
+build-image:
+	@for application in $(APPLICATIONS); do \
+		if [ -f build/$$application/Dockerfile ]; then \
+			echo $$application: build image started; \
+  			docker build -q -t $(IMAGE)/$$application:$(VERSION) build/$$application || exit 1; \
+  			echo $$application: build image finished \($(IMAGE)/$$application:$(VERSION)\); \
+		fi; \
+  	done
 
-postgres-migrate: build-binary
+postgres-migrate:
 	build/migrator/application migrate
 
-postgres-rollback: build-binary
+postgres-rollback:
 	build/migrator/application rollback
