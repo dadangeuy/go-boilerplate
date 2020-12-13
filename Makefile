@@ -1,6 +1,7 @@
-IMAGE = go-boilerplate
+PROJECT = $(shell basename $(CURDIR))
 VERSION = $(shell git show -q --format=%H)
 APPLICATIONS = $(shell ls application)
+DOCKER_REPOSITORY ?= 'docker.pkg.github.com/dadangeuy'
 
 test:
 	go test -v ./...
@@ -19,10 +20,20 @@ build-image:
 	@for application in $(APPLICATIONS); do \
 		if [ -f build/$$application/Dockerfile ]; then \
 			echo $$application: build image started; \
-  			docker build -q -t $(IMAGE)/$$application:$(VERSION) build/$$application || exit 1; \
-  			echo $$application: build image finished \($(IMAGE)/$$application:$(VERSION)\); \
+  			docker build --quiet --tag $(PROJECT)/$$application:$(VERSION) build/$$application || exit 1; \
+  			echo $$application: build image finished \($(PROJECT)/$$application:$(VERSION)\); \
 		fi; \
   	done
+
+push-image:
+	@for application in $(APPLICATIONS); do \
+  		if [ -f build/$$application/Dockerfile ]; then \
+  		  echo $$application: push image started; \
+  		  docker tag $(PROJECT)/$$application:$(VERSION) $(DOCKER_REPOSITORY)/$(PROJECT)/$$application:$(VERSION) || exit 1; \
+  		  docker push $(DOCKER_REPOSITORY)/$(PROJECT)/$$application:$(VERSION) || exit 1; \
+  		  echo $$application: push image finished \($(DOCKER_REPOSITORY)/$(PROJECT)/$$application:$(VERSION)\); \
+  		fi; \
+	done
 
 postgres-migrate:
 	build/migrator/application migrate
