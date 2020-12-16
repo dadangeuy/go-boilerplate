@@ -31,5 +31,5 @@ func NewPostgresMigrator(postgresDB *gorm.DB) *gormigrate.Gormigrate {
 	}
 	sort.Slice(migrations, func(i, j int) bool { return migrations[i].ID < migrations[j].ID })
 
-	return gormigrate.New(postgresDB, gormigrate.DefaultOptions, migrations)
+	return gormigrate.New(postgresDB.Debug(), gormigrate.DefaultOptions, migrations)
 }
