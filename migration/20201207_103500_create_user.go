@@ -6,9 +6,9 @@ import (
 	"gorm.io/gorm"
 )
 
-func NewCreateUserMigration() *gormigrate.Migration {
+func (Migrations) CreateUserMigration() *gormigrate.Migration {
 	return &gormigrate.Migration{
-		ID: "20201207103500_create_user",
+		ID: "20201207_103500_create_user",
 		Migrate: func(db *gorm.DB) error {
 			return db.Migrator().CreateTable(&model.User{})
 		},

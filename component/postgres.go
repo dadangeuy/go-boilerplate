@@ -7,7 +7,6 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"os"
-	"sort"
 )
 
 func NewPostgresDB() (*gorm.DB, error) {
@@ -26,10 +25,9 @@ func NewPostgresDB() (*gorm.DB, error) {
 }
 
 func NewPostgresMigrator(postgresDB *gorm.DB) *gormigrate.Gormigrate {
-	migrations := []*gormigrate.Migration{
-		migration.NewCreateUserMigration(),
-	}
-	sort.Slice(migrations, func(i, j int) bool { return migrations[i].ID < migrations[j].ID })
-
-	return gormigrate.New(postgresDB, gormigrate.DefaultOptions, migrations)
+	return gormigrate.New(
+		postgresDB.Debug(),
+		gormigrate.DefaultOptions,
+		migration.NewMigrations(),
+	)
 }
