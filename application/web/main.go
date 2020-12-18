@@ -17,10 +17,12 @@ func main() {
 	postgresDB, err := component.NewPostgresDB()
 	panicOnError(err)
 	infoDelivery := component.NewInfoDelivery(postgresDB)
+	userDelivery := component.NewUserDelivery(postgresDB)
 
 	// build router
 	router := httprouter.New()
 	router.GET("/", infoDelivery.WelcomeHandler)
+	router.GET("/users", userDelivery.ListHandler)
 
 	// build server
 	server := &http.Server{
