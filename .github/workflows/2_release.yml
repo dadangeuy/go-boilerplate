@@ -1,4 +1,4 @@
-name: deployment
+name: release
 on:
   workflow_run:
     workflows:
@@ -9,7 +9,7 @@ on:
       - completed
 jobs:
   push-image:
-    name: Push image
+    name: push image
     runs-on: ubuntu-18.04
     steps:
       - name: Set up Go 1.x
