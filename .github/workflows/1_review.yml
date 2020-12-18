@@ -1,9 +1,12 @@
 name: review
 on:
   push:
+    branches:
+      - master
+  pull_request:
 jobs:
   build-binary:
-    name: Build binary
+    name: build binary
     runs-on: ubuntu-18.04
     steps:
       - name: Set up Go 1.x
@@ -15,7 +18,7 @@ jobs:
       - name: Build
         run: make build-binary
   test:
-    name: Test
+    name: test
     runs-on: ubuntu-18.04
     needs:
       - build-binary
@@ -29,7 +32,7 @@ jobs:
       - name: Test
         run: make test
   build-image:
-    name: Build image
+    name: build image
     runs-on: ubuntu-18.04
     needs:
       - build-binary
