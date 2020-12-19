@@ -7,7 +7,7 @@ import (
 )
 
 func (d *Delivery) ListHandler(w http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
-	users, err := d.Usecase.FindAll()
+	users, err := d.Usecase.List()
 	if err != nil {
 		panic(err)
 	}
