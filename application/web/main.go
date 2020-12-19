@@ -16,7 +16,7 @@ func main() {
 	// build component
 	postgresDB, err := component.NewPostgresDB()
 	panicOnError(err)
-	infoDelivery := component.NewInfoDelivery(postgresDB)
+	infoDelivery := component.NewInfoDelivery()
 	userDelivery := component.NewUserDelivery(postgresDB)
 
 	// build router
