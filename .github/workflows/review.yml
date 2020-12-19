@@ -6,7 +6,7 @@ on:
   pull_request:
 jobs:
   build-binary:
-    name: build binary
+    name: Build binary
     runs-on: ubuntu-18.04
     steps:
       - name: Set up Go 1.x
@@ -18,10 +18,8 @@ jobs:
       - name: Build
         run: make build-binary
   test:
-    name: test
+    name: Test
     runs-on: ubuntu-18.04
-    needs:
-      - build-binary
     steps:
       - name: Set up Go 1.x
         uses: actions/setup-go@v2
@@ -32,10 +30,8 @@ jobs:
       - name: Test
         run: make test
   build-image:
-    name: build image
+    name: Build image
     runs-on: ubuntu-18.04
-    needs:
-      - build-binary
     steps:
       - name: Set up Go 1.x
         uses: actions/setup-go@v2
