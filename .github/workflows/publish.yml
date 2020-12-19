@@ -1,4 +1,4 @@
-name: release
+name: publish
 on:
   workflow_run:
     workflows:
@@ -8,8 +8,8 @@ on:
     types:
       - completed
 jobs:
-  push-image:
-    name: Push image
+  publish-image:
+    name: Publish image
     runs-on: ubuntu-18.04
     steps:
       - name: Set up Go 1.x
