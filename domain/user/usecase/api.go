@@ -1,7 +1,9 @@
 package usecase
 
-import "go-boilerplate/domain/user/repository"
+import (
+	"go-boilerplate/domain/user"
+)
 
 type Usecase struct {
-	Repository *repository.Repository
+	Repository user.Repository
 }
