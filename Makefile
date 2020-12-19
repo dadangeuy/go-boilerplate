@@ -4,6 +4,11 @@ COMMIT = $(shell git show -q --format=%H)
 APPLICATIONS = $(shell ls application)
 DOCKER_REPOSITORY ?= 'docker.pkg.github.com/dadangeuy'
 
+generate-mock:
+	@for domain in $(shell ls domain); do \
+		mockery --dir domain/$$domain/ --output domain/$$domain/mock/ --outpkg mock --all --quiet || exit 1; \
+	done
+
 test:
 	go test -v ./...
 
