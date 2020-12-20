@@ -1,4 +1,4 @@
-package component
+package mock
 
 import (
 	mocket "github.com/Selvatico/go-mocket"
