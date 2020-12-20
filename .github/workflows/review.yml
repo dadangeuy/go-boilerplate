@@ -1,8 +1,5 @@
 name: review
 on:
-  push:
-    branches:
-      - master
   pull_request:
 jobs:
   build-binary:
@@ -57,7 +54,11 @@ jobs:
         uses: actions/checkout@v2
       - name: Build coverage report
         run: make coverage-report
-      - name: Publish coverage report
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Publish coverage
         run: |
           COVERAGE=$( go tool cover -func=coverage.out | grep total | grep -Eo [0-9.]+% )
           curl \
@@ -66,4 +67,4 @@ jobs:
             -u ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}\
             -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.pull_request.head.sha }} \
-            -d "{\"state\":\"success\",\"context\":\"coverage\",\"description\":\"${COVERAGE}\",\"target_url\":\"https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}/checks\"}"
+            -d "{\"state\":\"success\",\"context\":\"coverage\",\"description\":\"${COVERAGE}\",\"target_url\":\"https://github.com/${{ github.repository }}/actions/runs/{{ github.run_id }}\"}"
