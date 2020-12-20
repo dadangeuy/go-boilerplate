@@ -18,7 +18,7 @@ func TestRepositorySuite(t *testing.T) {
 }
 
 func (s *RepositorySuite) SetupSuite() {
-	db, err := component.NewPostgresDB()
+	db, err := mock.NewPostgresDB()
 	if err != nil {
 		panic(err)
 	}
