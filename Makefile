@@ -10,7 +10,10 @@ generate-mock:
 	done
 
 test:
-	go test -v ./...
+	go test ./...
+
+coverage-report:
+	go test -coverpkg=./... -coverprofile=coverage.out ./...
 
 build-binary:
 	@for application in $(APPLICATIONS); do \
