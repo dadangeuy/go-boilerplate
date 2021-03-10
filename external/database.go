@@ -1,4 +1,4 @@
-package component
+package external
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 	"os"
 )
 
-func NewPostgresDB() (*gorm.DB, error) {
+func NewDB() (*gorm.DB, error) {
 	host := os.Getenv("POSTGRES_HOST")
 	port := os.Getenv("POSTGRES_PORT")
 	name := os.Getenv("POSTGRES_NAME")
@@ -20,11 +20,12 @@ func NewPostgresDB() (*gorm.DB, error) {
 		"host=%s port=%s dbname=%s user=%s password=%s sslmode=disable TimeZone=Asia/Jakarta",
 		host, port, name, user, pass,
 	)
+	dialector := postgres.Open(dsn)
 
-	return gorm.Open(postgres.Open(dsn), nil)
+	return gorm.Open(dialector, nil)
 }
 
-func NewPostgresMigrator(postgresDB *gorm.DB) *gormigrate.Gormigrate {
+func NewMigrator(postgresDB *gorm.DB) *gormigrate.Gormigrate {
 	return gormigrate.New(
 		postgresDB.Debug(),
 		gormigrate.DefaultOptions,

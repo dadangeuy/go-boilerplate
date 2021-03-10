@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/joho/godotenv"
-	"go-boilerplate/component"
+	"go-boilerplate/external"
 	"log"
 	"os"
 )
@@ -14,9 +14,9 @@ func main() {
 
 	command := os.Args[1]
 
-	postgresDB, err := component.NewPostgresDB()
+	postgresDB, err := external.NewDB()
 	panicOnError(err)
-	migrator := component.NewPostgresMigrator(postgresDB)
+	migrator := external.NewMigrator(postgresDB)
 
 	switch command {
 	case "migrate":
@@ -29,7 +29,7 @@ func main() {
 	}
 }
 
-func warnOnError(err error)  {
+func warnOnError(err error) {
 	if err != nil {
 		log.Print(err)
 	}

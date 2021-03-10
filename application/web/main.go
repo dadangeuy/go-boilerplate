@@ -3,7 +3,9 @@ package main
 import (
 	"github.com/joho/godotenv"
 	"github.com/julienschmidt/httprouter"
-	"go-boilerplate/component"
+	"go-boilerplate/domain/info"
+	"go-boilerplate/domain/user"
+	"go-boilerplate/external"
 	"log"
 	"net/http"
 )
@@ -13,11 +15,17 @@ func main() {
 	err := godotenv.Load()
 	warnOnError(err)
 
-	// build component
-	postgresDB, err := component.NewPostgresDB()
+	// build external component
+	postgresDB, err := external.NewDB()
 	panicOnError(err)
-	infoDelivery := component.NewInfoDelivery()
-	userDelivery := component.NewUserDelivery(postgresDB)
+
+	// build info component
+	infoDelivery := info.NewInfoDelivery()
+
+	// build user component
+	userRepository := user.NewUserRepository(postgresDB)
+	userUsecase := user.NewUserUsecase(userRepository)
+	userDelivery := user.NewUserDelivery(userUsecase)
 
 	// build router
 	router := httprouter.New()
@@ -35,7 +43,7 @@ func main() {
 	panicOnError(err)
 }
 
-func warnOnError(err error)  {
+func warnOnError(err error) {
 	if err != nil {
 		log.Print(err)
 	}
