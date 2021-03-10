@@ -3,7 +3,7 @@ module go-boilerplate
 go 1.15
 
 require (
-	github.com/Selvatico/go-mocket v1.0.7
+	github.com/DATA-DOG/go-sqlmock v1.5.0
 	github.com/go-gormigrate/gormigrate/v2 v2.0.0
 	github.com/jackc/pgx/v4 v4.10.0 // indirect
 	github.com/joho/godotenv v1.3.0

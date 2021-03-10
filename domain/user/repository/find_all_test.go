@@ -1,27 +1,29 @@
 package repository_test
 
 import (
-	mocket "github.com/Selvatico/go-mocket"
+	"github.com/DATA-DOG/go-sqlmock"
 	"gorm.io/gorm"
+	"regexp"
 )
 
+var findAllQuery = regexp.QuoteMeta(`SELECT * FROM "users"`)
+
 func (s *RepositorySuite) TestFindAll() {
-	reply := []map[string]interface{}{{"ID": 1}}
-	mocket.Catcher.NewMock().
-		WithQuery(`SELECT * FROM "users"`).
-		WithReply(reply)
+	rows := sqlmock.NewRows([]string{"id"}).AddRow(1)
+	s.mSQL.
+		ExpectQuery(findAllQuery).
+		WillReturnRows(rows)
 
 	users, err := s.repository.FindAll()
 
 	s.Assert().NoError(err)
-	s.Assert().NotNil(users)
-	s.Assert().EqualValues(len(reply), len(users))
+	s.Assert().Len(users, 1)
 }
 
 func (s *RepositorySuite) TestFindAllWithError() {
-	mocket.Catcher.NewMock().
-		WithQuery(`SELECT * FROM "users"`).
-		WithError(gorm.ErrNotImplemented)
+	s.mSQL.
+		ExpectQuery(findAllQuery).
+		WillReturnError(gorm.ErrNotImplemented)
 
 	_, err := s.repository.FindAll()
 
