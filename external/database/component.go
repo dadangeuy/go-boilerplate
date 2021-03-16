@@ -1,12 +1,14 @@
-package external
+package database
 
 import (
 	"fmt"
 	"github.com/go-gormigrate/gormigrate/v2"
-	"go-boilerplate/migration"
+	"go-boilerplate/external/database/migration"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"os"
+	"reflect"
+	"sort"
 )
 
 func NewDB() (*gorm.DB, error) {
@@ -29,6 +31,24 @@ func NewMigrator(postgresDB *gorm.DB) *gormigrate.Gormigrate {
 	return gormigrate.New(
 		postgresDB.Debug(),
 		gormigrate.DefaultOptions,
-		migration.NewMigrations(),
+		NewMigrations(),
 	)
+}
+
+func NewMigrations() migration.Migrations {
+	migrations := migration.Migrations{}
+
+	migrationsValue := reflect.ValueOf(migrations)
+	for methodID := 0; methodID < migrationsValue.NumMethod(); methodID++ {
+		migrationMethod := migrationsValue.Method(methodID)
+		migrationValue := migrationMethod.
+			Call([]reflect.Value{})[0].
+			Interface().(*gormigrate.Migration)
+		migrations = append(migrations, migrationValue)
+	}
+
+	sortByIDAsc := func(i, j int) bool { return migrations[i].ID < migrations[j].ID }
+	sort.Slice(migrations, sortByIDAsc)
+
+	return migrations
 }

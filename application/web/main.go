@@ -5,7 +5,7 @@ import (
 	"github.com/julienschmidt/httprouter"
 	"go-boilerplate/domain/info"
 	"go-boilerplate/domain/user"
-	"go-boilerplate/external"
+	"go-boilerplate/external/database"
 	"log"
 	"net/http"
 )
@@ -16,7 +16,7 @@ func main() {
 	warnOnError(err)
 
 	// build external component
-	postgresDB, err := external.NewDB()
+	postgresDB, err := database.NewDB()
 	panicOnError(err)
 
 	// build info component
