@@ -2,7 +2,7 @@ PROJECT = $(shell basename $(CURDIR))
 BRANCH = $(shell git rev-parse --abbrev-ref HEAD)
 COMMIT = $(shell git show -q --format=%H)
 APPLICATIONS = $(shell ls application)
-DOCKER_REPOSITORY ?= 'docker.pkg.github.com/dadangeuy'
+DOCKER_REPOSITORY ?= 'docker.pkg.github.com/dadangeuy/go-boilerplate'
 
 generate-mock:
 	@for domain in $(shell ls domain); do \
@@ -29,8 +29,8 @@ build-image:
 	@for application in $(APPLICATIONS); do \
 		if [ -f build/$$application/Dockerfile ]; then \
 			echo $$application: build image started; \
-  			docker build --quiet --tag $(PROJECT)/$$application:$(COMMIT) build/$$application || exit 1; \
-  			echo $$application: build image finished \($(PROJECT)/$$application:$(COMMIT)\); \
+  			docker build --quiet --tag $(PROJECT)-$$application:$(COMMIT) build/$$application || exit 1; \
+  			echo $$application: build image finished \($(PROJECT)-$$application:$(COMMIT)\); \
 		fi; \
   	done
 
@@ -38,13 +38,15 @@ push-image:
 	@for application in $(APPLICATIONS); do \
   		if [ -f build/$$application/Dockerfile ]; then \
 			echo $$application: push image started; \
-			docker tag $(PROJECT)/$$application:$(COMMIT) $(DOCKER_REPOSITORY)/$(PROJECT)/$$application:$(COMMIT) || exit 1; \
-			docker push $(DOCKER_REPOSITORY)/$(PROJECT)/$$application:$(COMMIT) || exit 1; \
-  			if [ $(BRANCH) = 'master' ]; then \
-  			  	docker tag $(PROJECT)/$$application:$(COMMIT) $(DOCKER_REPOSITORY)/$(PROJECT)/$$application:latest || exit 1; \
-  			  	docker push $(DOCKER_REPOSITORY)/$(PROJECT)/$$application:latest || exit 1; \
+			docker tag $(PROJECT)-$$application:$(COMMIT) $(DOCKER_REPOSITORY)/$(PROJECT)-$$application:$(COMMIT) || exit 1; \
+			docker tag $(PROJECT)-$$application:$(COMMIT) $(DOCKER_REPOSITORY)/$(PROJECT)-$$application:$(BRANCH) || exit 1; \
+			docker push $(DOCKER_REPOSITORY)/$(PROJECT)-$$application:$(COMMIT) || exit 1; \
+			docker push $(DOCKER_REPOSITORY)/$(PROJECT)-$$application:$(BRANCH) || exit 1; \
+  			if [ $(BRANCH) = 'master' ] || [ $(BRANCH) = 'main' ]; then \
+  			  	docker tag $(PROJECT)-$$application:$(COMMIT) $(DOCKER_REPOSITORY)/$(PROJECT)-$$application:latest || exit 1; \
+  			  	docker push $(DOCKER_REPOSITORY)/$(PROJECT)-$$application:latest || exit 1; \
 		  	fi; \
-			echo $$application: push image finished \($(DOCKER_REPOSITORY)/$(PROJECT)/$$application:$(COMMIT)\); \
+			echo $$application: push image finished \($(DOCKER_REPOSITORY)/$(PROJECT)-$$application:$(COMMIT)\); \
   		fi; \
 	done
 
