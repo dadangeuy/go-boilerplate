@@ -1,9 +1,17 @@
 package delivery
 
 import (
-	"go-boilerplate/domain/user"
+	"net/http"
+
+	"github.com/julienschmidt/httprouter"
+
+	"go-boilerplate/domain/user/usecase"
 )
 
-type Delivery struct {
-	Usecase user.Usecase
+type Delivery interface {
+	ListHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params)
+}
+
+type DefaultDelivery struct {
+	Usecase usecase.Usecase
 }

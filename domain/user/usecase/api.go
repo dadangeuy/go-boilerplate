@@ -1,9 +1,14 @@
 package usecase
 
 import (
-	"go-boilerplate/domain/user"
+	"go-boilerplate/domain/user/repository"
+	"go-boilerplate/model"
 )
 
-type Usecase struct {
-	Repository user.Repository
+type Usecase interface {
+	List() ([]model.User, error)
+}
+
+type DefaultUsecase struct {
+	Repository repository.Repository
 }

@@ -1,18 +1,20 @@
 package repository_test
 
 import (
+	"testing"
+
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/stretchr/testify/suite"
-	"go-boilerplate/domain/user/repository"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"testing"
+
+	"go-boilerplate/domain/user/repository"
 )
 
 type RepositorySuite struct {
 	suite.Suite
 	mSQL       sqlmock.Sqlmock
-	repository repository.Repository
+	repository repository.DefaultRepository
 }
 
 func TestRepositorySuite(t *testing.T) {
@@ -32,5 +34,5 @@ func (s *RepositorySuite) SetupTest() {
 	config := postgres.Config{Conn: mDB}
 	dialect := postgres.New(config)
 	db, err := gorm.Open(dialect, nil)
-	s.repository = repository.Repository{DB: db}
+	s.repository = repository.DefaultRepository{DB: db}
 }

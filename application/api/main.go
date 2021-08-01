@@ -7,7 +7,9 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/julienschmidt/httprouter"
 
-	"go-boilerplate/component"
+	"go-boilerplate/domain/info"
+	"go-boilerplate/domain/user"
+	"go-boilerplate/external/postgres"
 )
 
 func main() {
@@ -16,10 +18,10 @@ func main() {
 	warnOnError(err)
 
 	// build component
-	postgresDB, err := component.NewPostgresDB()
+	postgresDB, err := postgres.NewPostgresDB()
 	panicOnError(err)
-	infoDelivery := component.NewInfoDelivery()
-	userDelivery := component.NewUserDelivery(postgresDB)
+	infoDelivery := info.NewInfoDelivery()
+	userDelivery := user.NewUserDelivery(postgresDB)
 
 	// build router
 	router := httprouter.New()

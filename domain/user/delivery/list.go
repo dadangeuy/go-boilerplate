@@ -2,11 +2,12 @@ package delivery
 
 import (
 	"encoding/json"
-	"github.com/julienschmidt/httprouter"
 	"net/http"
+
+	"github.com/julienschmidt/httprouter"
 )
 
-func (d *Delivery) ListHandler(w http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
+func (d *DefaultDelivery) ListHandler(w http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
 	users, err := d.Usecase.List()
 	if err != nil {
 		panic(err)

@@ -1,9 +1,10 @@
-package migration
+package postgres
 
 import (
 	"github.com/go-gormigrate/gormigrate/v2"
-	"go-boilerplate/model"
 	"gorm.io/gorm"
+
+	"go-boilerplate/model"
 )
 
 func (Migrations) CreateUserMigration() *gormigrate.Migration {

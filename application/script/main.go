@@ -8,7 +8,7 @@ import (
 
 	"github.com/joho/godotenv"
 
-	"go-boilerplate/component"
+	"go-boilerplate/external/postgres"
 )
 
 func main() {
@@ -18,9 +18,9 @@ func main() {
 
 	script := os.Args[1]
 
-	postgresDB, err := component.NewPostgresDB()
+	postgresDB, err := postgres.NewPostgresDB()
 	panicOnError(err)
-	migrator := component.NewPostgresMigrator(postgresDB)
+	migrator := postgres.NewPostgresMigrator(postgresDB)
 
 	switch script {
 	case "migrate":

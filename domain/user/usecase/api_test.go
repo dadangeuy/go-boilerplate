@@ -1,16 +1,18 @@
 package usecase_test
 
 import (
+	"testing"
+
 	"github.com/stretchr/testify/suite"
+
 	"go-boilerplate/domain/user/mock"
 	"go-boilerplate/domain/user/usecase"
-	"testing"
 )
 
 type Suite struct {
 	suite.Suite
 	repository *mock.Repository
-	usecase *usecase.Usecase
+	usecase    *usecase.DefaultUsecase
 }
 
 func TestSuite(t *testing.T) {
@@ -19,5 +21,5 @@ func TestSuite(t *testing.T) {
 
 func (s *Suite) SetupTest() {
 	s.repository = new(mock.Repository)
-	s.usecase = &usecase.Usecase{Repository: s.repository}
+	s.usecase = &usecase.DefaultUsecase{Repository: s.repository}
 }
