@@ -1,11 +1,13 @@
 package main
 
 import (
-	"github.com/joho/godotenv"
-	"github.com/julienschmidt/httprouter"
-	"go-boilerplate/component"
 	"log"
 	"net/http"
+
+	"github.com/joho/godotenv"
+	"github.com/julienschmidt/httprouter"
+
+	"go-boilerplate/component"
 )
 
 func main() {
@@ -35,7 +37,7 @@ func main() {
 	panicOnError(err)
 }
 
-func warnOnError(err error)  {
+func warnOnError(err error) {
 	if err != nil {
 		log.Print(err)
 	}

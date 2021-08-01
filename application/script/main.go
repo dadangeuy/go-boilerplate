@@ -1,10 +1,14 @@
 package main
 
 import (
-	"github.com/joho/godotenv"
-	"go-boilerplate/component"
+	"errors"
+	"fmt"
 	"log"
 	"os"
+
+	"github.com/joho/godotenv"
+
+	"go-boilerplate/component"
 )
 
 func main() {
@@ -12,13 +16,13 @@ func main() {
 	err := godotenv.Load()
 	warnOnError(err)
 
-	command := os.Args[1]
+	script := os.Args[1]
 
 	postgresDB, err := component.NewPostgresDB()
 	panicOnError(err)
 	migrator := component.NewPostgresMigrator(postgresDB)
 
-	switch command {
+	switch script {
 	case "migrate":
 		err = migrator.Migrate()
 		panicOnError(err)
@@ -26,10 +30,14 @@ func main() {
 	case "rollback":
 		err = migrator.RollbackLast()
 		panicOnError(err)
+
+	default:
+		err = errors.New(fmt.Sprintf("Script not found: %s", script))
+		panic(err)
 	}
 }
 
-func warnOnError(err error)  {
+func warnOnError(err error) {
 	if err != nil {
 		log.Print(err)
 	}

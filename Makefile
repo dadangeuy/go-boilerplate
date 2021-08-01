@@ -50,8 +50,5 @@ push-image:
   		fi; \
 	done
 
-postgres-migrate:
-	build/migrator/application migrate
-
-postgres-rollback:
-	build/migrator/application rollback
+run-script-%:
+	build/script/application $*
