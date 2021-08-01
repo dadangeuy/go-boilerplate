@@ -2,7 +2,7 @@ PROJECT = $(shell basename $(CURDIR))
 BRANCH = $(shell git rev-parse --abbrev-ref HEAD)
 COMMIT = $(shell git show -q --format=%H)
 APPLICATIONS = $(shell ls application)
-DOCKER_REPOSITORY ?= 'docker.pkg.github.com/dadangeuy/go-boilerplate'
+DOCKER_REPOSITORY ?= 'docker.io/dadangeuy'
 
 generate-mock:
 	@for domain in $(shell ls domain); do \
